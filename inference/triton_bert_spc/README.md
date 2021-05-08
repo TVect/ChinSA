@@ -9,14 +9,14 @@ saved_model_cli show --dir=savedmodel_dir --all
 - 模型文件转换
 
 ```
-freeze_graph --input_saved_model_dir=savedmodel_dir --output_node_names=output/probs --output_graph=freeze_graph.pb
+freeze_graph --input_saved_model_dir=/path_to_savedmodel --output_node_names=output/probs --output_graph=freeze_graph.pb
 ```
 
 - 准备推理文件
 
-1. tensorflow backend 可以使用 xxxxx.pb 做为 model.graphdef 放在 bert_spc_tf 中
+1. tensorflow backend 可以使用 xxxxx.pb 做为 model.graphdef. 放在文件夹 bert_spc_tf 中
 
-2. tensorrt backend 可以使用 xxxxx.engine 做为 model.plan 放在 bert_spc_tensorrt 中
+2. tensorrt backend 可以使用 xxxxx.engine 做为 model.plan. 放在文件夹 bert_spc_tensorrt 中
 
 
 - 启动 triton inference server

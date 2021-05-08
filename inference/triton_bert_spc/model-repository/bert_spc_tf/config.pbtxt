@@ -1,0 +1,63 @@
+name: "bert_spc_tf"
+platform: "tensorflow_graphdef"
+max_batch_size: 8
+input [
+  {
+    name: "input_ids"
+    data_type: TYPE_INT32
+    dims: [128]
+  },
+  {
+    name: "input_mask"
+    data_type: TYPE_INT32
+    dims: [128]
+  },
+  {
+    name: "segment_ids"
+    data_type: TYPE_INT32
+    dims: [128]
+  }
+]
+output [
+  {
+    name: "output/probs"
+    data_type: TYPE_FP32
+    dims: [1]
+  }
+]
+
+dynamic_batching { preferred_batch_size: [ 4 ] }
+
+instance_group [ { count: 2 }]
+
+optimization { execution_accelerators {
+      gpu_execution_accelerator : [ {
+        name : "tensorrt" }]
+}}
+
+model_warmup [
+    {
+        name: "warmup_input"
+        batch_size: 1
+        inputs: [{
+            key: "input_ids"
+            value:  {
+                data_type: TYPE_INT32
+                dims: [ 128 ]
+                zero_data: true
+            }},
+            {key: "input_mask"
+            value: {
+                data_type: TYPE_INT32
+                dims: [ 128 ]
+                zero_data: true
+            }},
+            {key: "segment_ids"
+            value: {
+                data_type: TYPE_INT32
+                dims: [ 128 ]
+                zero_data: true
+            }}
+        ]
+    }
+]

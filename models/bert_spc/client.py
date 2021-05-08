@@ -43,7 +43,22 @@ if __name__ == "__main__":
                            processor_file=options.processor_file)
     in_text = "非常人性化的设计啊"
     in_aspect = "设计"
+
     output = client.predict(in_text, in_aspect)
     print(output)
-    import IPython
-    IPython.embed()
+
+    import pandas as pd
+    import time
+    feature = client.preprocessor.convert_single_example(InputExample(text_a=in_text, text_b=in_aspect))
+    qps_list = []
+    inference_time_list = []
+    for _ in range(100):
+        start_time = time.time()
+        client.predict_fn({"input_ids": [feature.input_ids],
+                           "input_mask": [feature.input_mask],
+                           "segment_ids": [feature.segment_ids]})
+        inference_time_list.append((time.time() - start_time) * 1000)
+        qps_list.append(1000 / inference_time_list[-1])
+    print(pd.DataFrame({"qps": qps_list, "inference_time": inference_time_list}).describe())
+
+

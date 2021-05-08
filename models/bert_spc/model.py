@@ -14,7 +14,8 @@ def create_model(is_training, input_ids, input_mask, segment_ids,
         input_mask=input_mask,
         token_type_ids=segment_ids,
         use_one_hot_embeddings=False)
-    output_layer = model.get_sequence_output()[:, 0, :]
+    # output_layer = model.get_sequence_output()[:, 0, :]
+    output_layer = model.get_pooled_output()
 
     # control which variables are trainable
     # trainable_variables = tf.get_collection_ref(tf.GraphKeys.TRAINABLE_VARIABLES)

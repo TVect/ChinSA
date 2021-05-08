@@ -14,6 +14,7 @@ python data_prepare.py \
    --vocab_file=chinese_L-12_H-768_A-12/vocab.txt \
    --dataset=camera
 ```
+或者直接执行 bash bin/run_dataprepare.sh
 
 - train
 
@@ -29,6 +30,7 @@ python main.py \
     --batch_size=32 \
     --num_labels=1
 ```
+或者直接执行 bash bin/run_main.sh
 
 - test
 
@@ -37,5 +39,6 @@ python test.py --dataset=camera \
 	--model_path=output/ckpts/export/best_exporter/1620294022 \
 	--processor_file=output/preprocessor.json
 ```
+或者直接执行 bash bin/run_test.sh
 
 ## How to run a serving client?

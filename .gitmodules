@@ -1,3 +1,6 @@
 [submodule "models/bert_spc/bert"]
 	path = models/bert_spc/bert
 	url = https://github.com/google-research/bert.git
+[submodule "models/bert_spc_multilabel/bert"]
+	path = models/bert_spc_multilabel/bert
+	url = https://github.com/google-research/bert.git

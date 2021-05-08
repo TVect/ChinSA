@@ -31,7 +31,7 @@ nvidia-docker run --rm --privileged -it -v TensorRT:/workspace/TensorRT nvcr.io/
 **build engine**
 
 ```
-python3 absa_builder.py -m /workspace/TensorRT/demo/BERT/models/absa_bert_spec/model.ckpt-1186 -o /workspace/TensorRT/demo/BERT/engines/absa_bert_spc_128.engine -b 1 -s 128 --fp32 -c /workspace/TensorRT/demo/BERT/models/absa_bert_spec/
+python3 absa_builder.py -m /workspace/TensorRT/demo/BERT/models/absa_bert_spec/model.ckpt-1186 -o /workspace/TensorRT/demo/BERT/engines/absa_bert_spc_128.engine -b 1 -b 4 -b 8 -s 128 --fp32 -c /workspace/TensorRT/demo/BERT/models/absa_bert_spec/
 ```
 **inference**
 
@@ -42,7 +42,7 @@ CUDA_VISIBLE_DEVICES="1" python3 absa_inference.py -e /workspace/TensorRT/demo/B
 ## 效果
 
 **使用原始 Tensorflow Estimator Inference 的测试效果**
-
+```
               qps  inference_time
 count  100.000000      100.000000
 mean    74.399650       13.530974
@@ -52,7 +52,7 @@ min     60.623594        9.899855
 50%     72.119747       13.865829
 75%     74.355894       14.100432
 max    101.011584       16.495228
-
+```
 **使用 TensorRT engine 的测试效果**
 
 ```
